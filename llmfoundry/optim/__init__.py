@@ -33,13 +33,14 @@ def register_pytorch_optimizers():
             and name not in skip_optimizers
         ):
             registry_name = f"pytorch_{name.lower()}"
-            if registry_name not in optimizers._registry:
-                obj.__doc__ = (
-                    f"PyTorch {name} optimizer.\n\n"
-                    + (obj.__doc__ or "")
-                    + f"\n\nRegistered as '{registry_name}' in LLM Foundry."
-                )
-                optimizers.register(registry_name, func=obj)
+
+            obj.__doc__ = (
+                f"PyTorch {name} optimizer.\n\n"
+                + (obj.__doc__ or "")
+                + f"\n\nRegistered as '{registry_name}' in LLM Foundry."
+            )
+
+            optimizers.register(registry_name, func=obj)
 
 
 optimizers.register("adalr_lion", func=DecoupledAdaLRLion)
